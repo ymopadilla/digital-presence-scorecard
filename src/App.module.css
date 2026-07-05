@@ -12,7 +12,9 @@
   max-width: 680px;
 }
 
-.header { margin-bottom: 0.25rem; }
+.header { margin-bottom: 0.25rem;
+text-align: center;
+ }
 
 .logo {
   font-size: 22px;
@@ -48,7 +50,8 @@
 }
 
 .logoImg {
-  height: 60px;
+  height: 80px;
   width: auto;
-  margin-bottom: 0.5rem;
+  display: block;
+  margin-bottom: 0.75rem;
 }
