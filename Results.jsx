@@ -1,0 +1,161 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--atc-blush);
+  border: 1px solid var(--atc-border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--atc-accent);
+  margin-bottom: 1rem;
+}
+
+.scoreCard {
+  background: var(--atc-blush);
+  border: 1px solid var(--atc-border);
+  border-left: 4px solid var(--atc-accent);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.scoreNum {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--atc-accent);
+  line-height: 1;
+  min-width: 90px;
+}
+
+.scoreLabel {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--atc-brown);
+  margin-bottom: 4px;
+}
+
+.scoreSub {
+  font-size: 13px;
+  color: var(--atc-muted);
+  line-height: 1.5;
+}
+
+.tipsTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--atc-brown);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.75rem;
+}
+
+.tip {
+  background: #fff;
+  border: 1px solid var(--atc-border-light);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.625rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.tipLabel {
+  font-weight: 600;
+  color: var(--atc-accent);
+}
+
+.tipText {
+  font-size: 13px;
+  color: var(--atc-brown);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.cta {
+  background: var(--atc-cream);
+  border: 1px solid var(--atc-border-light);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--atc-brown);
+  margin-bottom: 6px;
+}
+
+.ctaSub {
+  font-size: 13px;
+  color: var(--atc-muted);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.ctaBtns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  padding: 10px 20px;
+  background: var(--atc-accent);
+  color: #fff;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.15s;
+}
+
+.btnPrimary:hover {
+  background: var(--atc-accent-dark);
+  text-decoration: none;
+}
+
+.btnSecondary {
+  padding: 10px 20px;
+  background: #fff;
+  color: var(--atc-accent);
+  border: 1px solid var(--atc-accent);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.15s;
+}
+
+.btnSecondary:hover {
+  background: var(--atc-cream);
+  text-decoration: none;
+}
+
+.restart {
+  background: none;
+  border: none;
+  color: var(--atc-muted);
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+  margin: 1rem auto 0;
+}
+
+.restart:hover { color: var(--atc-brown); }
+
+@media (max-width: 480px) {
+  .scoreCard { flex-direction: column; gap: 0.75rem; }
+  .scoreNum { min-width: unset; }
+}
