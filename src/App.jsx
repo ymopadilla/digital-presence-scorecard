@@ -1,57 +1,61 @@
 import { useState } from 'react'
-import styles from './Welcome.module.css'
+import Welcome from './components/Welcome.jsx'
+import Quiz from './components/Quiz.jsx'
+import Results from './components/Results.jsx'
+import styles from './App.module.css'
 
-export default function Welcome({ onStart }) {
-  const [selected, setSelected] = useState(null)
+export default function App() {
+  const [screen, setScreen] = useState('welcome')
+  const [track, setTrack] = useState(null)
+  const [answers, setAnswers] = useState({})
+  const [score, setScore] = useState(null)
+
+  function handleStart(selectedTrack) {
+    setTrack(selectedTrack)
+    setAnswers({})
+    setScreen('quiz')
+  }
+
+  function handleComplete(finalAnswers, finalScore) {
+    setAnswers(finalAnswers)
+    setScore(finalScore)
+    setScreen('results')
+  }
+
+  function handleRestart() {
+    setTrack(null)
+    setAnswers({})
+    setScore(null)
+    setScreen('welcome')
+  }
 
   return (
-    <div>
-      <p className={styles.intro}>
-        Before we start, pick the path that fits you. Your questions and results
-        will be tailored to where you are.
-      </p>
+    <div className={styles.page}>
+      <main className={styles.card}>
+        <header className={styles.header}>
+          <div className={styles.logo}>
+            <span className={styles.logoAccent}>Digital Presence</span> Scorecard
+          </div>
+          <p className={styles.tagline}>
+            Find out where you stand — and what to work on next
+          </p>
+        </header>
+        <hr className={styles.divider} />
 
-      <div className={styles.tracks}>
-        <button
-          className={`${styles.trackCard} ${selected === 'pro' ? styles.selected : ''}`}
-          onClick={() => setSelected('pro')}
-          aria-pressed={selected === 'pro'}
-        >
-          <i className={`ti ti-user-circle ${styles.trackIcon}`} aria-hidden="true" />
-          <div className={styles.trackName}>Professional</div>
-          <p className={styles.trackDesc}>
-            You're building your personal brand online. Your digital presence
-            represents <em>you</em>.
-          </p>
-          <p className={styles.trackExamples}>
-            Freelancers · Coaches · Consultants · Job seekers · Creators
-          </p>
-        </button>
+        {screen === 'welcome' && <Welcome onStart={handleStart} />}
+        {screen === 'quiz' && <Quiz track={track} onComplete={handleComplete} />}
+        {screen === 'results' && (
+          <Results track={track} score={score} answers={answers} onRestart={handleRestart} />
+        )}
 
-        <button
-          className={`${styles.trackCard} ${selected === 'biz' ? styles.selected : ''}`}
-          onClick={() => setSelected('biz')}
-          aria-pressed={selected === 'biz'}
-        >
-          <i className={`ti ti-building-store ${styles.trackIcon}`} aria-hidden="true" />
-          <div className={styles.trackName}>Business Owner</div>
-          <p className={styles.trackDesc}>
-            You run a business. Your digital presence represents your{' '}
-            <em>company</em> and needs to attract customers.
-          </p>
-          <p className={styles.trackExamples}>
-            Shops · Service businesses · Restaurants · Studios · Teams
-          </p>
-        </button>
-      </div>
-
-      <button
-        className={styles.startBtn}
-        disabled={!selected}
-        onClick={() => onStart(selected)}
-      >
-        Start my scorecard →
-      </button>
+        <footer className={styles.footer}>
+          A free tool from{' '}
+          <a href="https://aintthatcomplicated.com" target="_blank" rel="noreferrer">
+            AIn't That Complicated
+          </a>{' '}
+          · AI classes for real people
+        </footer>
+      </main>
     </div>
   )
 }
