@@ -1,61 +1,48 @@
-import { useState } from 'react'
-import Welcome from './components/Welcome.jsx'
-import Quiz from './components/Quiz.jsx'
-import Results from './components/Results.jsx'
-import styles from './App.module.css'
+.page {
+  min-height: 100vh;
+  background: var(--atc-cream);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem 4rem;
+}
 
-export default function App() {
-  const [screen, setScreen] = useState('welcome') // welcome | quiz | results
-  const [track, setTrack] = useState(null)         // 'pro' | 'biz'
-  const [answers, setAnswers] = useState({})
-  const [score, setScore] = useState(null)
+.card {
+  width: 100%;
+  max-width: 680px;
+}
 
-  function handleStart(selectedTrack) {
-    setTrack(selectedTrack)
-    setAnswers({})
-    setScreen('quiz')
-  }
+.header { margin-bottom: 0.25rem; }
 
-  function handleComplete(finalAnswers, finalScore) {
-    setAnswers(finalAnswers)
-    setScore(finalScore)
-    setScreen('results')
-  }
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--atc-brown);
+  line-height: 1.2;
+}
 
-  function handleRestart() {
-    setTrack(null)
-    setAnswers({})
-    setScore(null)
-    setScreen('welcome')
-  }
+.logoAccent { color: var(--atc-accent); }
 
-  return (
-    <div className={styles.page}>
-      <main className={styles.card}>
-        <header className={styles.header}>
-          <div className={styles.logo}>
-            <span className={styles.logoAccent}>Digital Presence</span> Scorecard
-          </div>
-          <p className={styles.tagline}>
-            Find out where you stand — and what to work on next
-          </p>
-        </header>
-        <hr className={styles.divider} />
+.tagline {
+  font-size: 13px;
+  color: var(--atc-muted);
+  margin-top: 4px;
+}
 
-        {screen === 'welcome' && <Welcome onStart={handleStart} />}
-        {screen === 'quiz' && <Quiz track={track} onComplete={handleComplete} />}
-        {screen === 'results' && (
-          <Results track={track} score={score} answers={answers} onRestart={handleRestart} />
-        )}
+.divider {
+  border: none;
+  border-top: 1px solid var(--atc-border-light);
+  margin: 1rem 0 1.25rem;
+}
 
-        <footer className={styles.footer}>
-          A free tool from{' '}
-          <a href="https://aintthatcomplicated.com" target="_blank" rel="noreferrer">
-            AIn't That Complicated
-          </a>{' '}
-          · AI classes for real people
-        </footer>
-      </main>
-    </div>
-  )
+.footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 12px;
+  color: var(--atc-muted);
+}
+
+.footer a {
+  color: var(--atc-accent);
+  font-weight: 500;
 }
