@@ -1,161 +1,85 @@
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--atc-blush);
-  border: 1px solid var(--atc-border);
-  border-radius: 20px;
-  padding: 4px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--atc-accent);
-  margin-bottom: 1rem;
+import styles from './Results.module.css'
+
+function getScoreTier(pct) {
+  if (pct >= 80) return {
+    label: 'Strong presence',
+    sub: 'Your digital presence is working for you. A few targeted improvements could take it even further.',
+  }
+  if (pct >= 55) return {
+    label: 'Getting there',
+    sub: "You have a foundation, but there are clear gaps holding you back. The good news: they're fixable.",
+  }
+  if (pct >= 30) return {
+    label: 'Needs attention',
+    sub: "Your digital presence isn't doing the work it should. Addressing these gaps will make a real difference.",
+  }
+  return {
+    label: 'Starting from scratch',
+    sub: "Don't worry — everyone starts somewhere. Focus on one area at a time and you'll see results quickly.",
+  }
 }
 
-.scoreCard {
-  background: var(--atc-blush);
-  border: 1px solid var(--atc-border);
-  border-left: 4px solid var(--atc-accent);
-  border-radius: var(--radius);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
+export default function Results({ track, score, onRestart }) {
+  const { pct, tips } = score
+  const { label, sub } = getScoreTier(pct)
 
-.scoreNum {
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--atc-accent);
-  line-height: 1;
-  min-width: 90px;
-}
+  return (
+    <div>
+      <div className={styles.badge}>
+        <i className={`ti ${track === 'pro' ? 'ti-user-circle' : 'ti-building-store'}`} aria-hidden="true" />
+        {track === 'pro' ? 'Professional track' : 'Business Owner track'}
+      </div>
 
-.scoreLabel {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--atc-brown);
-  margin-bottom: 4px;
-}
+      <div className={styles.scoreCard}>
+        <div className={styles.scoreNum} aria-label={`Score: ${pct} percent`}>
+          {pct}%
+        </div>
+        <div>
+          <div className={styles.scoreLabel}>{label}</div>
+          <div className={styles.scoreSub}>{sub}</div>
+        </div>
+      </div>
 
-.scoreSub {
-  font-size: 13px;
-  color: var(--atc-muted);
-  line-height: 1.5;
-}
+      <h2 className={styles.tipsTitle}>Here's what to work on</h2>
 
-.tipsTitle {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--atc-brown);
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  margin-bottom: 0.75rem;
-}
+      {tips.length === 0 ? (
+        <div className={styles.tip}>
+          <i className="ti ti-check" style={{ color: 'var(--atc-accent)', fontSize: 16, marginTop: 1, flexShrink: 0 }} aria-hidden="true" />
+          <p className={styles.tipText}>
+            You're doing great across the board! Consider a professional audit to uncover any hidden opportunities.
+          </p>
+        </div>
+      ) : (
+        tips.slice(0, 6).map((tip, i) => (
+          <div key={i} className={styles.tip}>
+            <i className="ti ti-alert-circle" style={{ color: 'var(--atc-accent)', fontSize: 16, marginTop: 1, flexShrink: 0 }} aria-hidden="true" />
+            <p className={styles.tipText}>
+              <span className={styles.tipLabel}>{tip.label}: </span>
+              {tip.text}
+            </p>
+          </div>
+        ))
+      )}
 
-.tip {
-  background: #fff;
-  border: 1px solid var(--atc-border-light);
-  border-radius: var(--radius);
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.625rem;
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-}
+      <div className={styles.cta}>
+        <h3 className={styles.ctaTitle}>Ready to fix it?</h3>
+        <p className={styles.ctaSub}>
+          You can learn to do this yourself — or hand it off to someone who handles it every day.
+        </p>
+        <div className={styles.ctaBtns}>
+          <a href="https://aintthatcomplicated.com" className={styles.btnPrimary} target="_blank" rel="noreferrer">
+            Learn to do it yourself →
+          </a>
+          
+          <a href="https://digitalnavigationsolutions.com" className={styles.btnSecondary} target="_blank" rel="noreferrer">
+            Have it done for you →
+          </a>
+        </div>
+      </div>
 
-.tipLabel {
-  font-weight: 600;
-  color: var(--atc-accent);
-}
-
-.tipText {
-  font-size: 13px;
-  color: var(--atc-brown);
-  line-height: 1.5;
-  margin: 0;
-}
-
-.cta {
-  background: var(--atc-cream);
-  border: 1px solid var(--atc-border-light);
-  border-radius: var(--radius);
-  padding: 1.25rem 1.5rem;
-  margin-top: 1.5rem;
-  text-align: center;
-}
-
-.ctaTitle {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--atc-brown);
-  margin-bottom: 6px;
-}
-
-.ctaSub {
-  font-size: 13px;
-  color: var(--atc-muted);
-  margin-bottom: 1rem;
-  line-height: 1.5;
-}
-
-.ctaBtns {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btnPrimary {
-  padding: 10px 20px;
-  background: var(--atc-accent);
-  color: #fff;
-  border-radius: var(--radius);
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.15s;
-}
-
-.btnPrimary:hover {
-  background: var(--atc-accent-dark);
-  text-decoration: none;
-}
-
-.btnSecondary {
-  padding: 10px 20px;
-  background: #fff;
-  color: var(--atc-accent);
-  border: 1px solid var(--atc-accent);
-  border-radius: var(--radius);
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.15s;
-}
-
-.btnSecondary:hover {
-  background: var(--atc-cream);
-  text-decoration: none;
-}
-
-.restart {
-  background: none;
-  border: none;
-  color: var(--atc-muted);
-  font-size: 13px;
-  cursor: pointer;
-  text-decoration: underline;
-  display: block;
-  margin: 1rem auto 0;
-}
-
-.restart:hover { color: var(--atc-brown); }
-
-@media (max-width: 480px) {
-  .scoreCard { flex-direction: column; gap: 0.75rem; }
-  .scoreNum { min-width: unset; }
+      <button className={styles.restart} onClick={onRestart}>
+        ← Start over
+      </button>
+    </div>
+  )
 }

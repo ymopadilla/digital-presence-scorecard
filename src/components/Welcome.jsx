@@ -1,89 +1,56 @@
 import { useState } from 'react'
-import { PRO_SECTIONS, BIZ_SECTIONS, PRO_TIPS, BIZ_TIPS, LABELS } from '../data.js'
-import styles from './Quiz.module.css'
+import styles from './Welcome.module.css'
 
-export default function Quiz({ track, onComplete }) {
-  const sections = track === 'pro' ? PRO_SECTIONS : BIZ_SECTIONS
-  const allQuestions = sections.flatMap(s => s.questions)
-  const [answers, setAnswers] = useState({})
-
-  const answeredCount = Object.keys(answers).length
-  const progress = Math.round((answeredCount / allQuestions.length) * 100)
-  const allAnswered = answeredCount === allQuestions.length
-
-  function handleChange(id, value) {
-    setAnswers(prev => ({ ...prev, [id]: value }))
-  }
-
-  function handleSubmit() {
-    const tipMap = track === 'pro' ? PRO_TIPS : BIZ_TIPS
-    let total = 0
-    const tips = []
-
-    allQuestions.forEach(q => {
-      const val = answers[q.id]
-      total += val
-      if (val < 2 && tipMap[q.id]?.[val]) {
-        tips.push({ label: LABELS[q.id], text: tipMap[q.id][val] })
-      }
-    })
-
-    const pct = Math.round((total / (allQuestions.length * 2)) * 100)
-    onComplete(answers, { pct, tips })
-  }
+export default function Welcome({ onStart }) {
+  const [selected, setSelected] = useState(null)
 
   return (
     <div>
-      <div className={styles.badge}>
-        <i
-          className={`ti ${track === 'pro' ? 'ti-user-circle' : 'ti-building-store'}`}
-          aria-hidden="true"
-        />
-        {track === 'pro' ? 'Professional track' : 'Business Owner track'}
+      <p className={styles.intro}>
+        Before we start, pick the path that fits you. Your questions and results
+        will be tailored to where you are.
+      </p>
+
+      <div className={styles.tracks}>
+        <button
+          className={`${styles.trackCard} ${selected === 'pro' ? styles.selected : ''}`}
+          onClick={() => setSelected('pro')}
+          aria-pressed={selected === 'pro'}
+        >
+          <i className={`ti ti-user-circle ${styles.trackIcon}`} aria-hidden="true" />
+          <div className={styles.trackName}>Professional</div>
+          <p className={styles.trackDesc}>
+            You're building your personal brand online. Your digital presence
+            represents <em>you</em>.
+          </p>
+          <p className={styles.trackExamples}>
+            Freelancers · Coaches · Consultants · Job seekers · Creators
+          </p>
+        </button>
+
+        <button
+          className={`${styles.trackCard} ${selected === 'biz' ? styles.selected : ''}`}
+          onClick={() => setSelected('biz')}
+          aria-pressed={selected === 'biz'}
+        >
+          <i className={`ti ti-building-store ${styles.trackIcon}`} aria-hidden="true" />
+          <div className={styles.trackName}>Business Owner</div>
+          <p className={styles.trackDesc}>
+            You run a business. Your digital presence represents your{' '}
+            <em>company</em> and needs to attract customers.
+          </p>
+          <p className={styles.trackExamples}>
+            Shops · Service businesses · Restaurants · Studios · Teams
+          </p>
+        </button>
       </div>
-
-      <div className={styles.progressWrap} role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="Quiz progress">
-        <div className={styles.progressBar} style={{ width: `${progress}%` }} />
-      </div>
-
-      {sections.map(section => (
-        <div key={section.title} className={styles.section}>
-          <div className={styles.sectionTitle}>
-            <i className={`ti ${section.icon}`} aria-hidden="true" />
-            {section.title}
-          </div>
-
-          {section.questions.map(q => (
-            <div key={q.id} className={styles.question}>
-              <p className={styles.qText}>{q.text}</p>
-              <div className={styles.options} role="radiogroup" aria-label={q.text}>
-                {q.options.map(opt => (
-                  <label
-                    key={opt.value}
-                    className={`${styles.option} ${answers[q.id] === opt.value ? styles.selected : ''}`}
-                  >
-                    <input
-                      type="radio"
-                      name={q.id}
-                      value={opt.value}
-                      checked={answers[q.id] === opt.value}
-                      onChange={() => handleChange(q.id, opt.value)}
-                    />
-                    {opt.label}
-                  </label>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      ))}
 
       <button
-        className={styles.submitBtn}
-        disabled={!allAnswered}
-        onClick={handleSubmit}
+        className={styles.startBtn}
+        disabled={!selected}
+        onClick={() => onStart(selected)}
       >
-        See my score →
+        Start my scorecard →
       </button>
     </div>
   )

@@ -1,89 +1,87 @@
-.intro {
-  font-size: 14px;
-  color: var(--atc-mid);
-  line-height: 1.6;
-  margin-bottom: 1.25rem;
-}
+import { useState } from 'react'
+import { PRO_SECTIONS, BIZ_SECTIONS, PRO_TIPS, BIZ_TIPS, LABELS } from '../data.js'
+import styles from './Quiz.module.css'
 
-.tracks {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 1rem;
-}
+export default function Quiz({ track, onComplete }) {
+  const sections = track === 'pro' ? PRO_SECTIONS : BIZ_SECTIONS
+  const allQuestions = sections.flatMap(s => s.questions)
+  const [answers, setAnswers] = useState({})
 
-.trackCard {
-  border: 1.5px solid var(--atc-border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  background: #fff;
-  cursor: pointer;
-  transition: all 0.15s;
-  text-align: left;
-  width: 100%;
-}
+  const answeredCount = Object.keys(answers).length
+  const progress = Math.round((answeredCount / allQuestions.length) * 100)
+  const allAnswered = answeredCount === allQuestions.length
 
-.trackCard:hover {
-  border-color: var(--atc-accent);
-  background: var(--atc-cream);
-}
+  function handleChange(id, value) {
+    setAnswers(prev => ({ ...prev, [id]: value }))
+  }
 
-.trackCard.selected {
-  border-color: var(--atc-accent);
-  background: var(--atc-blush);
-}
+  function handleSubmit() {
+    const tipMap = track === 'pro' ? PRO_TIPS : BIZ_TIPS
+    let total = 0
+    const tips = []
 
-.trackIcon {
-  font-size: 26px;
-  color: var(--atc-accent);
-  display: block;
-  margin-bottom: 8px;
-}
+    allQuestions.forEach(q => {
+      const val = answers[q.id]
+      total += val
+      if (val < 2 && tipMap[q.id]?.[val]) {
+        tips.push({ label: LABELS[q.id], text: tipMap[q.id][val] })
+      }
+    })
 
-.trackName {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--atc-brown);
-  margin-bottom: 6px;
-}
+    const pct = Math.round((total / (allQuestions.length * 2)) * 100)
+    onComplete(answers, { pct, tips })
+  }
 
-.trackDesc {
-  font-size: 13px;
-  color: var(--atc-mid);
-  line-height: 1.5;
-  margin: 0 0 8px;
-}
+  return (
+    <div>
+      <div className={styles.badge}>
+        <i className={`ti ${track === 'pro' ? 'ti-user-circle' : 'ti-building-store'}`} aria-hidden="true" />
+        {track === 'pro' ? 'Professional track' : 'Business Owner track'}
+      </div>
 
-.trackExamples {
-  font-size: 12px;
-  color: var(--atc-muted);
-  font-style: italic;
-  margin: 0;
-}
+      <div className={styles.progressWrap} role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label="Quiz progress">
+        <div className={styles.progressBar} style={{ width: `${progress}%` }} />
+      </div>
 
-.startBtn {
-  width: 100%;
-  padding: 13px;
-  background: var(--atc-accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius);
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  transition: background 0.15s;
-}
+      {sections.map(section => (
+        <div key={section.title} className={styles.section}>
+          <div className={styles.sectionTitle}>
+            <i className={`ti ${section.icon}`} aria-hidden="true" />
+            {section.title}
+          </div>
 
-.startBtn:hover:not(:disabled) {
-  background: var(--atc-accent-dark);
-}
+          {section.questions.map(q => (
+            <div key={q.id} className={styles.question}>
+              <p className={styles.qText}>{q.text}</p>
+              <div className={styles.options} role="radiogroup" aria-label={q.text}>
+                {q.options.map(opt => (
+                  <label
+                    key={opt.value}
+                    className={`${styles.option} ${answers[q.id] === opt.value ? styles.selected : ''}`}
+                  >
+                    <input
+                      type="radio"
+                      name={q.id}
+                      value={opt.value}
+                      checked={answers[q.id] === opt.value}
+                      onChange={() => handleChange(q.id, opt.value)}
+                    />
+                    {opt.label}
+                  </label>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
 
-.startBtn:disabled {
-  background: var(--atc-border);
-  cursor: not-allowed;
-}
-
-@media (max-width: 480px) {
-  .tracks { grid-template-columns: 1fr; }
+      <button
+        className={styles.submitBtn}
+        disabled={!allAnswered}
+        onClick={handleSubmit}
+      >
+        See my score →
+      </button>
+    </div>
+  )
 }
