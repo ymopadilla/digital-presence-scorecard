@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Welcome from './components/Welcome.jsx'
 import Quiz from './components/Quiz.jsx'
-import Results from './components/Results.jsx'
+import Results from './components/ResultsPanel.jsx'
 import styles from './App.module.css'
 
 export default function App() {
