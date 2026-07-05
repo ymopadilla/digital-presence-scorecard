@@ -1,0 +1,89 @@
+.intro {
+  font-size: 14px;
+  color: var(--atc-mid);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.tracks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.trackCard {
+  border: 1.5px solid var(--atc-border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  width: 100%;
+}
+
+.trackCard:hover {
+  border-color: var(--atc-accent);
+  background: var(--atc-cream);
+}
+
+.trackCard.selected {
+  border-color: var(--atc-accent);
+  background: var(--atc-blush);
+}
+
+.trackIcon {
+  font-size: 26px;
+  color: var(--atc-accent);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.trackName {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--atc-brown);
+  margin-bottom: 6px;
+}
+
+.trackDesc {
+  font-size: 13px;
+  color: var(--atc-mid);
+  line-height: 1.5;
+  margin: 0 0 8px;
+}
+
+.trackExamples {
+  font-size: 12px;
+  color: var(--atc-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.startBtn {
+  width: 100%;
+  padding: 13px;
+  background: var(--atc-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.15s;
+}
+
+.startBtn:hover:not(:disabled) {
+  background: var(--atc-accent-dark);
+}
+
+.startBtn:disabled {
+  background: var(--atc-border);
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .tracks { grid-template-columns: 1fr; }
+}
