@@ -33,7 +33,9 @@ export default function App() {
     <div className={styles.page}>
       <main className={styles.card}>
         <header className={styles.header}>
+  <div className={styles.logoWrap}>
   <img src="/logo.png" alt="AIn't That Complicated" className={styles.logoImg} />
+</div>
   <div className={styles.logo}>
     <span className={styles.logoAccent}>Digital Presence</span> Scorecard
   </div>

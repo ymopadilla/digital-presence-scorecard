@@ -49,9 +49,13 @@ text-align: center;
   font-weight: 500;
 }
 
+.logoWrap {
+  text-align: center;
+  width: 100%;
+}
 .logoImg {
-  height: 80px;
+  height: 100px;
   width: auto;
   display: block;
-  margin-bottom: 0.75rem;
+  margin: 0 auto 0.75rem;
 }
