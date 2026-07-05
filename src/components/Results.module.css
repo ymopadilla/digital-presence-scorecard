@@ -11,105 +11,132 @@
   color: var(--atc-accent);
   margin-bottom: 1rem;
 }
-
-.progressWrap {
-  height: 4px;
-  background: var(--atc-border-light);
-  border-radius: 2px;
+.scoreCard {
+  background: var(--atc-blush);
+  border: 1px solid var(--atc-border);
+  border-left: 4px solid var(--atc-accent);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
   margin-bottom: 1.5rem;
-  overflow: hidden;
-}
-
-.progressBar {
-  height: 4px;
-  background: var(--atc-accent);
-  border-radius: 2px;
-  transition: width 0.3s ease;
-}
-
-.section { margin-bottom: 1.5rem; }
-
-.sectionTitle {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
+  gap: 1.5rem;
+}
+.scoreNum {
+  font-size: 48px;
   font-weight: 700;
   color: var(--atc-accent);
+  line-height: 1;
+  min-width: 90px;
+}
+.scoreLabel {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--atc-brown);
+  margin-bottom: 4px;
+}
+.scoreSub {
+  font-size: 13px;
+  color: var(--atc-muted);
+  line-height: 1.5;
+}
+.tipsTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--atc-brown);
   text-transform: uppercase;
   letter-spacing: 0.07em;
   margin-bottom: 0.75rem;
 }
-
-.sectionTitle i { font-size: 15px; }
-
-.question { margin-bottom: 1rem; }
-
-.qText {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--atc-brown);
-  margin-bottom: 6px;
-  line-height: 1.4;
-}
-
-.options {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border: 1px solid var(--atc-border);
-  border-radius: var(--radius);
-  cursor: pointer;
+.tip {
   background: #fff;
-  transition: all 0.15s;
+  border: 1px solid var(--atc-border-light);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.625rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.tipLabel {
+  font-weight: 600;
+  color: var(--atc-accent);
+}
+.tipText {
   font-size: 13px;
   color: var(--atc-brown);
+  line-height: 1.5;
+  margin: 0;
 }
-
-.option:hover {
-  border-color: var(--atc-accent);
+.cta {
   background: var(--atc-cream);
+  border: 1px solid var(--atc-border-light);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.5rem;
+  text-align: center;
 }
-
-.option.selected {
-  border-color: var(--atc-accent);
-  background: var(--atc-blush);
-  font-weight: 500;
+.ctaTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--atc-brown);
+  margin-bottom: 6px;
 }
-
-.option input[type='radio'] {
-  accent-color: var(--atc-accent);
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
+.ctaSub {
+  font-size: 13px;
+  color: var(--atc-muted);
+  margin-bottom: 1rem;
+  line-height: 1.5;
 }
-
-.submitBtn {
-  width: 100%;
-  padding: 13px;
+.ctaBtns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btnPrimary {
+  padding: 10px 20px;
   background: var(--atc-accent);
   color: #fff;
-  border: none;
   border-radius: var(--radius);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  cursor: pointer;
-  margin-top: 0.5rem;
+  text-decoration: none;
+  display: inline-block;
   transition: background 0.15s;
 }
-
-.submitBtn:hover:not(:disabled) {
+.btnPrimary:hover {
   background: var(--atc-accent-dark);
+  text-decoration: none;
 }
-
-.submitBtn:disabled {
-  background: var(--atc-border);
-  cursor: not-allowed;
+.btnSecondary {
+  padding: 10px 20px;
+  background: #fff;
+  color: var(--atc-accent);
+  border: 1px solid var(--atc-accent);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.15s;
+}
+.btnSecondary:hover {
+  background: var(--atc-cream);
+  text-decoration: none;
+}
+.restart {
+  background: none;
+  border: none;
+  color: var(--atc-muted);
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+  margin: 1rem auto 0;
+}
+.restart:hover { color: var(--atc-brown); }
+@media (max-width: 480px) {
+  .scoreCard { flex-direction: column; gap: 0.75rem; }
+  .scoreNum { min-width: unset; }
 }
