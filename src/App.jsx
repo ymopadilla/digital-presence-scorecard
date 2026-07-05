@@ -33,13 +33,14 @@ export default function App() {
     <div className={styles.page}>
       <main className={styles.card}>
         <header className={styles.header}>
-          <div className={styles.logo}>
-            <span className={styles.logoAccent}>Digital Presence</span> Scorecard
-          </div>
-          <p className={styles.tagline}>
-            Find out where you stand — and what to work on next
-          </p>
-        </header>
+  <img src="/logo.png" alt="AIn't That Complicated" className={styles.logoImg} />
+  <div className={styles.logo}>
+    <span className={styles.logoAccent}>Digital Presence</span> Scorecard
+  </div>
+  <p className={styles.tagline}>
+    Find out where you stand — and what to work on next
+  </p>
+</header>
         <hr className={styles.divider} />
 
         {screen === 'welcome' && <Welcome onStart={handleStart} />}

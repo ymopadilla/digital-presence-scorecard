@@ -46,3 +46,9 @@
   color: var(--atc-accent);
   font-weight: 500;
 }
+
+.logoImg {
+  height: 60px;
+  width: auto;
+  margin-bottom: 0.5rem;
+}
