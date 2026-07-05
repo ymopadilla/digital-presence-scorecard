@@ -1,29 +1,10 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
 
-:root {
-  --atc-cream: #FAF7F4;
-  --atc-blush: #F5EDE8;
-  --atc-accent: #C8451A;
-  --atc-accent-dark: #A83515;
-  --atc-brown: #2C1A0E;
-  --atc-mid: #5A4235;
-  --atc-muted: #7A6355;
-  --atc-border: #D9CFC9;
-  --atc-border-light: #E8DDD7;
-  --radius: 8px;
-}
-
-html { font-size: 16px; }
-
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--atc-cream);
-  color: var(--atc-brown);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-
-a { color: var(--atc-accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-button { cursor: pointer; font-family: 'Inter', sans-serif; }
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
